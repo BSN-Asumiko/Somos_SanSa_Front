@@ -1,32 +1,35 @@
 import CardSample from "./CardSample";
 import EditButton from "../buttons/EditButton";
 import DeleteButton from "../buttons/DeleteButton";
+import UserAvatar from "../images/UserAvatar";
 
 
-const CommentCard = ({commentText, imageSrc, userName, district, creationDate, commentId, onDelete}) => {
+const CommentCard = ({commentText, imageSrc, userName, district, creationDate, commentId, onDelete, className}) => {
     return (
-        <CardSample showHeader={false}>
+        <CardSample showHeader={false} className={`flex flex-col gap-4 ${className}`}>
             <div>
-                <p className="px-[1.13em]">{commentText}</p>
+                <p className="jaldi-regular text-sm text-justify">{commentText}</p>
             </div>
-            <div>
-                <div>
-                    <img
-                        src={imageSrc}
-                        alt="imágen de perfil de usuario"
-                        className="w-[2.81em] rounded-full"
-                    />
-                    <div>
-                        <p>{userName}</p>
+            <div className="flex gap-4">
+                <div className="flex w-[50%]">
+                    <UserAvatar 
+                    className="size-[2.81em]"
+                    imageSrc={imageSrc}/>
+                    <div className="ml-[1.44em]">
+                        <p className="jaldi-bold">{userName}</p>
                         <p>{district}</p>
                     </div>
 
                 </div>
-                <div>
+                <div className="flex flex-col flex w-[50%] items-end">
                     <p>{creationDate}</p>
-                    <div>
-                        <EditButton path={`edit_comment/${commentId}`} objectToModify="comentario"/>
-                        <DeleteButton commentId={commentId} onDelete={onDelete}/>
+                    <div className="flex gap-2 mt-2">
+                        <EditButton 
+                            path={`edit_comment/${commentId}`} objectToModify="comentario"
+                            className="size-[1.67em]"/>
+                        <DeleteButton 
+                        commentId={commentId} onDelete={onDelete}
+                        className="h-[1.67em]"/>
                     </div>
                 </div>
             </div>
@@ -35,3 +38,4 @@ const CommentCard = ({commentText, imageSrc, userName, district, creationDate, c
 }
 
 export default CommentCard
+

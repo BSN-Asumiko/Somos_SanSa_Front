@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import Delete from "../../../public/assets/Delete-icon.svg";
 import ConfirmModal from '../modal/ConfirmModal'; 
 
-function DeleteButton({ commentId, onDelete }) {
+function DeleteButton({ commentId, onDelete, className }) {
 
   const [isModalOpen, setModalOpen] = useState(false);
   
@@ -30,7 +30,7 @@ function DeleteButton({ commentId, onDelete }) {
     <>
       <img
         src={Delete}
-        className="h-[2.5rem] w-[1.917rem] cursor-pointer"
+        className={`cursor-pointer ${className}`}
         onClick={handleDelete} 
         alt="Eliminar el comentario"
       />
@@ -45,3 +45,5 @@ function DeleteButton({ commentId, onDelete }) {
 }
 
 export default DeleteButton;
+
+//h-[2.5rem] w-[1.917rem]
