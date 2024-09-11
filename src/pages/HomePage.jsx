@@ -1,14 +1,10 @@
 import React from 'react'
-import EditProfileForm from '../components/forms/EditProfileForm';
-import CommentCard from '../components/cards/CommentCard'
-import ImagePlaceholder from "../../public/assets/Image-placeholder.png";
-import TopicCard from '../components/cards/TopicCard';
-import BranchCard from '../components/cards/BranchCard';
+import CreateTopicForm from '../components/forms/CreateTopicForm'
 
 const HomePage = () => {
     return (
     <div>
-        <EditProfileForm />
+        < CreateTopicForm />
     </div>
     )
 }
