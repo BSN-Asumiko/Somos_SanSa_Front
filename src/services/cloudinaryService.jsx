@@ -1,9 +1,9 @@
 
 import axios from 'axios';
 
+const cloudName = import.meta.env.VITE_CLOUD_NAME;
+const uploadPreset = import.meta.env.VITE_UPLOAD_PRESET;
 
-const cloudName = process.env.REACT_APP_CLOUD_NAME;
-const uploadPreset = process.env.REACT_APP_UPLOAD_PRESET;
 
 /**
  * Uploads an image file to Cloudinary and returns the image URL.

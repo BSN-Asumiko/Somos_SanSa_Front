@@ -6,7 +6,7 @@ const TopicCard = ({className, headerText, imageSrc, userName, commentsQuantity,
     return (
     <CardSample 
         headerText={headerText} 
-        className={className}>
+        className={`w-[90%] ${className}`}>
         <div className='flex justify-between'>
             <UserAvatar 
                 className="size-[5.00em]"
