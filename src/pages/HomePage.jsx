@@ -1,9 +1,14 @@
 import React from 'react'
 import CreateTopicForm from '../components/forms/CreateTopicForm'
+import SearchInput from '../components/inputs/SearchInput'
+import Navbar from '../components/navbar/Navbar'
+
 
 const HomePage = () => {
     return (
     <div>
+        <Navbar />
+        <SearchInput path="/signin"/>
         < CreateTopicForm />
     </div>
     )

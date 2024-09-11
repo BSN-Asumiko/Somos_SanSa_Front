@@ -8,6 +8,7 @@ const CommonInput = forwardRef(({
     placeholder,
     type = 'text', 
     divInputClassName,
+    divSearchClassName,
     inputClassName,
     imgSrc,
     imgAlt,
@@ -20,14 +21,14 @@ const CommonInput = forwardRef(({
     ...rest
 }, ref) => {
     return (
-        <div className={`w-[17.50em] flex flex-col ${divInputClassName}`}>
+        <div className={`w-full flex flex-col ${divInputClassName}`}>
             <label
                 htmlFor={id}
                 className={`jaldi-bold text-md text-[color:var(--col-blue)] leading-[2.063rem] w-full ${labelClassName}`}
             >
                 {label}
             </label>
-            <div className={`rounded-[1.25rem] w-full bg-[color:var(--col-yellow-light)] jaldi-regular flex items-center`}>
+            <div className={`rounded-[1.25rem] w-full bg-[color:var(--col-yellow-light)] jaldi-regular flex items-center ${divSearchClassName}`}>
                 {type === 'textarea' ? (
                     <textarea
                         id={id}
