@@ -10,8 +10,8 @@ export const getCommentsByTopicUrl = (topicId) => `${BASE_URL}/auth/topics/${top
 // Protected endpoints
 export const getProfileDetailsUrl = (id) => `${BASE_URL}/api/profile/${id}`;
 export const updateProfileUrl = (userId) => `${BASE_URL}/api/profile/update/${userId}`;
-export const addNewTopicUrl = `${BASE_URL}/api/topics/add`;
-export const addNewCommentUrl = `${BASE_URL}/api/comments/add`;
+export const ADD_NEW_TOPIC_URL = `${BASE_URL}/api/topics/add`;
+export const ADD_NEW_COMMENT_URL = `${BASE_URL}/api/comments/add`;
 export const updateCommentUrl = (id) => `${BASE_URL}/api/comments/update/${id}`;
 export const deleteCommentUrl = (id) => `${BASE_URL}/api/comments/delete/${id}`;
 export const getCommentByIdUrl = (id) => `${BASE_URL}/api/comments/${id}`;
