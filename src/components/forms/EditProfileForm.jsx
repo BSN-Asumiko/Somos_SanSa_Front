@@ -10,7 +10,7 @@ import CardSample from "../cards/CardSample";
 import AcceptCancelButtons from '../buttons/AcceptCancelButtons';
 import EditButton from "../buttons/EditButton";
 import CommonInput from '../inputs/CommonInput';
-import ConfirmModal from "../modal/ConfirmModal";
+import ConfirmModal from "../modals/ConfirmModal";
 import UserAvatar from '../images/UserAvatar';
 import InputWithAcceptButton from '../inputs/InputWithAcceptButton';
 

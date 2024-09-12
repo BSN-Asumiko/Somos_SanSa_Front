@@ -8,7 +8,7 @@ import { ADD_NEW_COMMENT_URL } from "../../config/urls";
 import CardSample from "../cards/CardSample";
 import AcceptCancelButtons from '../buttons/AcceptCancelButtons';
 import CommonInput from '../inputs/CommonInput';
-import ConfirmModal from "../modal/ConfirmModal";
+import ConfirmModal from "../modals/ConfirmModal";
 
 const CreateCommentForm = ({topicName, topicId}) => {
 
