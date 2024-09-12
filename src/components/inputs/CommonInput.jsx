@@ -47,7 +47,9 @@ const CommonInput = forwardRef(({
                         placeholder={placeholder}
                         type={type}
                         ref={ref}
+                        value={value}
                         onInput={onInput} 
+                        onChange={onChange}
                         {...rest}
                     />
                 )}

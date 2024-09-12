@@ -30,8 +30,8 @@ const HomePage = () => {
         fetchBranches(); 
     }, []);
 
-    const handleClick = (branchId) => {
-        navigate(`/branch/${branchId}`);
+    const handleClick = (branch) => {
+        navigate(`/branch/${branch.id}`, { state: { branch } });
     };
 
     return (
@@ -44,7 +44,7 @@ const HomePage = () => {
                         key={branch.id} 
                         headerText={branch.category}
                         description={branch.description}
-                        onClick={() => handleClick(branch.id)} 
+                        onClick={() => handleClick(branch)}
                     />
                 ))}
             </main>
