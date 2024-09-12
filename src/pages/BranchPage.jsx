@@ -97,7 +97,7 @@ const BranchPage = () => {
                         onSearchChange={handleSearchChange}
                     />
 
-                    <h2 className="w-[80%] my-[2em] jaldi-bold text-lg text-[color:var(--col-red)] text-center">Todavía no hay ningún tema creado en esa sección, puedes crear el primero</h2>
+                    <h2 className="w-[80%] my-[2em] jaldi-bold text-lg text-[color:var(--col-red)] text-center">Todavía no hay ningún tema creado en esa sección</h2>
 
                 </main>
             </div>

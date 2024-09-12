@@ -20,9 +20,13 @@ const CommentCard = ({comment, className, onDeleteComment }) => {
     const [isModalOpen, setModalOpen] = useState(false);
     const [successMessage, setSuccessMessage] = useState("");
 
-    const currentUserId=user.id;
-    const creatorId = comment.userCommentDTO.id;
+    const topic = comment.topicDTO;
+    const commentId = comment.id; 
 
+    const currentUserId = user?.id ?? ''; 
+    const creatorId = comment.userCommentDTO.id ?? '';
+
+    const isAuthenticated = Boolean(authToken);
     const isCreator = currentUserId.toString() === creatorId.toString();
     
     const formatDate = (dateString) => {
@@ -38,10 +42,8 @@ const CommentCard = ({comment, className, onDeleteComment }) => {
     }
 
     const handleEditClick = () => {
-        navigate(`/edit_comment/${comment.id}`, {state: {comment}}); 
+        navigate(`/edit_comment/${comment.id}`, {state: {comment, topic}}); 
     };
-
-    const commentId = comment.id; 
 
     const handleDeleteClick = async (commentId) => {
         try {
@@ -61,8 +63,6 @@ const CommentCard = ({comment, className, onDeleteComment }) => {
             });
         }
     };
-
-    const topic = comment.topicDTO;
 
     const handleConfirm = () => {
         setModalOpen(false);
@@ -91,7 +91,7 @@ const CommentCard = ({comment, className, onDeleteComment }) => {
                     <div className="flex flex-col flex w-[50%] items-end">
                         <p>{formatDate(comment.createdAt)}</p>
 
-                        {isCreator && (
+                        {isAuthenticated && isCreator && (
                             <>
                                 <div className="flex gap-2 mt-2">
                                     <EditButton

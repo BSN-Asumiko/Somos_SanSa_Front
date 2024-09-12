@@ -45,7 +45,6 @@ const CreateCommentForm = ({topic}) => {
 
         try {
             const response = await apiRequest(ADD_NEW_COMMENT_URL, "POST", cleanedData, headers);
-            console.log("API Response:", response);
         
         const successMessage = "¡Nuevo comentario creado con éxito!";
         setSuccessMessage(successMessage);

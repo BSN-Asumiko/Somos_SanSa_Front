@@ -1,7 +1,8 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useContext} from 'react';
 import { useForm } from "react-hook-form";
 import { useNavigate } from "react-router-dom";
 
+import { AuthContext } from '../../auth/AuthWrapper';
 import { apiRequest } from "../../services/apiRequest";
 import { updateCommentUrl, getCommentByIdUrl } from "../../config/urls";
 
@@ -10,12 +11,13 @@ import AcceptCancelButtons from '../buttons/AcceptCancelButtons';
 import CommonInput from '../inputs/CommonInput';
 import ConfirmModal from "../modals/ConfirmModal";
 
-const EditCommentForm = ({ topicName, topicId, commentId }) => {
+const EditCommentForm = ({ topic, comment }) => {
 
-    const userId = localStorage.getItem('userId');
-    const token = localStorage.getItem('authToken');
-    const getCommentEndpoint = getCommentByIdUrl(commentId);
-    const updateCommentEndpoint = updateCommentUrl(commentId);
+    const { authToken, user } = useContext(AuthContext);
+    const userId = user.id;
+    const token = authToken;
+    const getCommentEndpoint = getCommentByIdUrl(comment.id);
+    const updateCommentEndpoint = updateCommentUrl(comment.id);
     const navigate = useNavigate();
 
     const { register, handleSubmit, setValue, formState: { errors } } = useForm();
@@ -47,7 +49,7 @@ const EditCommentForm = ({ topicName, topicId, commentId }) => {
                 id: userId
             },
             topic: {
-                id: topicId
+                id: topic.id
             }
         };
         
@@ -72,12 +74,12 @@ const EditCommentForm = ({ topicName, topicId, commentId }) => {
     };
 
     const handleCancelButtonClick = () => {
-        navigate(`/topic/${topicId}`);
+        navigate(`/topic/${topic.id}`, {state: {topic}});
     };
 
     const handleConfirm = () => {
         setModalOpen(false);
-        navigate(`/topic/${topicId}`);
+        navigate(`/topic/${topic.id}`, {state: {topic}});
     };
 
     return (
@@ -89,16 +91,16 @@ const EditCommentForm = ({ topicName, topicId, commentId }) => {
 
                     <div className='w-[17.50em]'>
                         <p className='jaldi-bold text-md'>Estás dentro del tema</p>
-                        <p className='text-md'>{topicName}</p>
+                        <p className='text-md'>{topic.title}</p>
                     </div>
 
                     <CommonInput
                         label="Texto"
                         id="text"
                         type="textarea"
-                        divInputClassName="mt-4"
-                        inputClassName="overflow-auto" 
-                        rows={10}
+                        divInputClassName="mt-4 w-full"
+                        inputClassName="overflow-auto w-full h-auto" 
+                        rows={8}
                         error={errors.text?.message}
                         {...register("text", {
                             required: "El comentario no puede estar vacío",
