@@ -10,7 +10,8 @@ import CardSample from "../cards/CardSample";
 import AcceptCancelButtons from '../buttons/AcceptCancelButtons';
 import EditButton from "../buttons/EditButton";
 import CommonInput from '../inputs/CommonInput';
-import ConfirmModal from "../modal/ConfirmModal";
+import ConfirmModal from "../modals/ConfirmModal";
+import ErrorModal from '../modals/ErrorModal';
 import UserAvatar from '../images/UserAvatar';
 import InputWithAcceptButton from '../inputs/InputWithAcceptButton';
 
@@ -24,7 +25,6 @@ const EditProfileForm = () => {
 
     const [formData, setFormData] = useState({
         nickname: '',
-        email: '',
         district: '',
         avatarUrl: ''
     });
@@ -32,22 +32,25 @@ const EditProfileForm = () => {
     const [isEditing, setIsEditing] = useState({ nickname: false, district: false });
     const [fileName, setFileName] = useState("Sube una imagen...");
     const [imageUrl, setImageUrl] = useState(ImagePlaceholder);
+    const [errorModal, setErrorModal] = useState({ isOpen: false, message: "" });
     const [isModalOpen, setModalOpen] = useState(false);
     const [successMessage, setSuccessMessage] = useState("");
     
     const updateProfileEndpoint = updateProfileUrl(userId);
     const getProfileEndpoint = getProfileDetailsUrl(userId);
+    const headers = {
+        'Content-Type': 'application/json',
+        'Accept': 'application/json',
+        'Authorization': `Bearer ${token}`
+    };
 
     useEffect(() => {
         const fetchUserProfile = async () => {
             try {
-                const userData = await apiRequest(getProfileEndpoint, "GET", null, {
-                    'Authorization': `Bearer ${token}`
-                });
+                const userData = await apiRequest(getProfileEndpoint, "GET", null, headers);
                 setFormData({
-                    nickname: userData.nickname,
-                    email: userData.email,
-                    district: userData.district,
+                    nickname: userData.nickname || '',
+                    district: userData.district || '',
                     avatarUrl: userData.avatarUrl || ImagePlaceholder,
                 });
                 setImageUrl(userData.avatarUrl || ImagePlaceholder);
@@ -66,9 +69,13 @@ const EditProfileForm = () => {
                 const uploadedImageUrl = await uploadImageToCloudinary(file);
                 setFileName(file.name);
                 setImageUrl(uploadedImageUrl); 
+                console.log(uploadedImageUrl)
                 setFormData((prev) => ({ ...prev, avatarUrl: uploadedImageUrl }));
             } catch (error) {
-                alert(error.message);
+                setErrorModal({
+                    isOpen: true,
+                    message: error.message
+                });
                 setFileName("Sube una imagen...");
                 e.target.value = '';
             }
@@ -83,13 +90,11 @@ const EditProfileForm = () => {
     };
 
     const handleAccept = (field) => {
-        // Update the formData state with the current value
+
         setIsEditing((prev) => ({
             ...prev,
-            [field]: false,  // Exit edit mode
-        }));
-    
-        console.log("Saved data:", formData);  // Save formData if needed
+            [field]: false,  
+        }));  
     }
 
     const onSubmit = async (data) => {
@@ -107,12 +112,14 @@ const EditProfileForm = () => {
 
         try {
             const response = await apiRequest(updateProfileEndpoint, 'PUT', cleanedData, headers);
-            console.log("API Response:", response);
             setSuccessMessage("Perfil editado con éxito!");
             setModalOpen(true);
         } catch (error) {
             console.error("API Error:", error.message);
-            alert(`Error: ${error.response?.data?.message || error.message}`);
+            setErrorModal({
+                isOpen: true,
+                message: `Error: ${error.response?.data?.message || error.message}`
+            });
         }
     };
 
@@ -128,31 +135,32 @@ const EditProfileForm = () => {
     return (
         <>
             <CardSample 
-                className="w-[19.38em] h-[39.25em] my-[5rem] flex flex-col items-center justify-center" 
+                className="w-[19.38em] h-auto mt-[4rem] flex flex-col items-center " 
                 headerText="Perfil de usuario"
             >
                 <form onSubmit={handleSubmit(onSubmit)} className='w-full'>
-                    <UserAvatar 
-                        className="size-[9.69em] m-auto mb-6"
-                        imageSrc={imageUrl || ImagePlaceholder}
-                    />
+                    <div className='size-[9.69em] m-auto relative mb-6'>
+                        <UserAvatar 
+                            imageSrc={imageUrl || ImagePlaceholder}
+                        />
+                    </div>
+                    
 
-                    <div className='flex rounded-[1.25rem] h-[2.5rem] text-[color:var(--col-blue)] bg-[color:var(--col-yellow-light)] text-md pl-[1.063rem] shadow-inset-custom'>
+                    <div className='flex rounded-[1.25rem] h-[2.5rem]  text-[color:var(--col-blue)] bg-[color:var(--col-yellow-light)] text-md pl-[1.063rem] shadow-inset-custom'>
                         <CommonInput
-                            label="Imagen"
-                            labelClassName="outline-none cursor-pointer"
+                            label="img"
+                            labelClassName="outline-none cursor-pointer w-[3.63em] pl-[0.2em]"
                             id="image"
                             type="file"
                             placeholder="Sube una imagen..."
-                            divInputClassName="w-[3.875rem] rounded-tl-[1.25rem] rounded-bl-[1.25rem] bg-[color:var(--col-blue)] ml-[-1rem] relative block"
+                            divInputClassName=" rounded-tl-[1.25rem] w-[3.5em] rounded-bl-[1.25rem] bg-[color:var(--col-blue)] ml-[-1rem] relative block"
                             imgSrc="/public/assets/File-icon.svg"
+                            imgAlt="Seleccionar una imágen de tu dispositivo"
                             imgClassName='w-[1.876rem] h-[1.5rem] absolute top-[0.5rem] left-[1rem]'
                             inputClassName="hidden"
                             onInput={handleFileChange}
-                            error={errors.avatarUrl?.message}
-                            {...register("avatarUrl", { required: "Imagen requerida" })}
                         />
-                        <p className='pl-[0.813rem] flex items-center'>
+                        <p className='pl-[0.813rem] flex items-center profile-text'>
                             {fileName}
                         </p>
                     </div>
@@ -171,8 +179,8 @@ const EditProfileForm = () => {
                                 />
                             ) : (
                                 <div className='text-md'>
-                                    <p className='jaldi-bold'>Nombre</p>
-                                    <p>{formData.nickname}</p>
+                                    <p className='jaldi-bold profile-text'>Nombre</p>
+                                    <p className='profile-text'>{formData.nickname}</p>
                                 </div>
                             )}
                         </div>
@@ -185,14 +193,8 @@ const EditProfileForm = () => {
                         )}
                     </div>
 
-                    {/* Email (Non-editable) */}
-                    <div className='mt-2 text-md'>
-                        <p className='jaldi-bold'>E-mail</p>
-                        <p>{formData.email}</p>
-                    </div>
-
                     {/* District */}
-                    <div className='flex justify-between items-center mt-2'>
+                    <div className='flex justify-between items-center mt-4'>
                         <div>
                             {isEditing.district ? (
                                 <InputWithAcceptButton
@@ -205,8 +207,8 @@ const EditProfileForm = () => {
                                 />
                             ) : (
                                 <div className='text-md'>
-                                    <p className='jaldi-bold'>Barrio</p>
-                                    <p>{formData.district}</p>
+                                    <p className='jaldi-bold profile-text'>Barrio</p>
+                                    <p className='profile-text'>{formData.district}</p>
                                 </div>
                             )}
                         </div>
@@ -219,7 +221,7 @@ const EditProfileForm = () => {
                         )}
                     </div>
 
-                    <AcceptCancelButtons type="submit" onClickCancel={handleCancelButtonClick} className="mt-8" />
+                    <AcceptCancelButtons type="submit" onClickCancel={handleCancelButtonClick} className="mt-10" />
                 </form>
             </CardSample>
 
@@ -229,6 +231,12 @@ const EditProfileForm = () => {
                 onConfirm={handleConfirm}
                 message={successMessage}
                 showOnlyAccept={true}
+            />
+            
+            <ErrorModal 
+                isOpen={errorModal.isOpen} 
+                onClose={() => setErrorModal({ isOpen: false, message: "" })} 
+                message={errorModal.message} 
             />
         </>
     );

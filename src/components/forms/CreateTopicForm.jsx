@@ -1,33 +1,33 @@
-import React, { useState } from 'react';
+import React, { useState, useContext } from 'react';
 import { useForm } from "react-hook-form";
 import { useNavigate } from "react-router-dom";
 
+import { AuthContext } from '../../auth/AuthWrapper';
 import { apiRequest } from "../../services/apiRequest";
 import { ADD_NEW_TOPIC_URL } from "../../config/urls";
 
 import CardSample from "../cards/CardSample";
 import AcceptCancelButtons from '../buttons/AcceptCancelButtons';
 import CommonInput from '../inputs/CommonInput';
-import ConfirmModal from "../modal/ConfirmModal";
+import ConfirmModal from "../modals/ConfirmModal";
+import ErrorModal from '../modals/ErrorModal';
 
 const CreateTopicForm = ({branchName, branchId}) => {
 
-    const userId = localStorage.getItem('userId');
-    const token = localStorage.getItem('authToken');
+    const { authToken, user } = useContext(AuthContext);
+    const userId = user.id;
+    const token = authToken;
     const navigate = useNavigate();
 
     const handleCancelButtonClick = () => {
         navigate(`/branch/${branchId}`);
     };
 
-    const handleConfirm = () => {
-        setModalOpen(false);
-        navigate(`/topic/${newTopicId}`);
-    };
-
     const { register, handleSubmit, formState: { errors } } = useForm();
     const [isModalOpen, setModalOpen] = useState(false);
     const [successMessage, setSuccessMessage] = useState("");
+    const [topic, setTopic] = useState("");
+    const [errorModal, setErrorModal] = useState({ isOpen: false, message: "" });
 
     const onSubmit = async (data) => {
         const { title } = data;
@@ -49,20 +49,27 @@ const CreateTopicForm = ({branchName, branchId}) => {
         };
 
         try {
-            const response = await apiRequest(ADD_NEW_TOPIC_URL, POST, cleanedData, headers);
+            const response = await apiRequest(ADD_NEW_TOPIC_URL, "POST", cleanedData, headers);
             console.log("API Response:", response);
-        
-        const newTopicId = response.data.id; // Assuming the backend returns the new topic ID in the response
-        const successMessage = "¡Nuevo tema creado con éxito!";
-        setSuccessMessage(successMessage);
-        setModalOpen(true);
+            setTopic(response);
+
+            const successMessage = "¡Nuevo tema creado con éxito!";
+            setSuccessMessage(successMessage);
+            setModalOpen(true);
 
         } catch (error) {
-            console.error("API Error:", error);
-            alert(`Error: ${error.response?.data?.message || error.message}`);
+            console.error("API Error:", error.message);
+            setErrorModal({
+                isOpen: true,
+                message: `Error: ${error.message}`
+            });
         }
     };
 
+    const handleConfirm = () => {
+        setModalOpen(false);
+        navigate("/create_comment", {state: {topic}});
+    };
 
     return (
         <>
@@ -72,8 +79,8 @@ const CreateTopicForm = ({branchName, branchId}) => {
                     <form onSubmit={handleSubmit(onSubmit)} className='w-full flex flex-col justify-center items-center'>
 
                     <div className='w-[17.50em]'>
-                        <p className='jaldi-bold text-md'>Estás dentro de sección</p>
-                        <p className='text-md'>{branchName}Busco amigos para hacer caminadas</p>
+                        <p className='jaldi-bold text-md'>Estás dentro de la sección</p>
+                        <p className='text-md'>{branchName}</p>
                     </div>
 
                     <CommonInput
@@ -81,8 +88,8 @@ const CreateTopicForm = ({branchName, branchId}) => {
                         id="title"
                         type="textarea"
                         placeholder="Escribe el título del tema..." 
-                        divInputClassName="mt-4"
-                        inputClassName="overflow-auto" 
+                        divInputClassName="mt-4 w-full"
+                        inputClassName="overflow-auto w-full" 
                         rows={5} 
                         error={errors.title?.message}
                         {...register("title", {
@@ -103,6 +110,11 @@ const CreateTopicForm = ({branchName, branchId}) => {
                 onConfirm={handleConfirm}
                 message={successMessage}
                 showOnlyAccept={true}
+            />
+            <ErrorModal 
+                isOpen={errorModal.isOpen} 
+                onClose={() => setErrorModal({ isOpen: false, message: "" })} 
+                message={errorModal.message} 
             />
         </>
     )

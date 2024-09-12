@@ -5,7 +5,7 @@ const AddButton = ({onClick, objectToAdd}) => {
         <img
             src={Create}
             className="cursor-pointer w-[2.50em]"
-            alt={`Añadir el ${objectToAdd}.`}
+            alt={`Añadir ${objectToAdd}.`}
             onClick={onClick}
         />
     )

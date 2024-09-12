@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import Delete from "../../../public/assets/Delete-icon.svg";
-import ConfirmModal from '../modal/ConfirmModal'; 
+import ConfirmModal from '../modals/ConfirmModal'; 
 
 function DeleteButton({ commentId, onDelete, className }) {
 
@@ -36,7 +36,7 @@ function DeleteButton({ commentId, onDelete, className }) {
       />
       <ConfirmModal 
         isOpen={isModalOpen} 
-        message={"¿Quieres eliminar este destino?"}
+        message={"¿Quieres eliminar este comentario?"}
         onConfirm={handleConfirm}  
         onClose={handleCancel}  
       />

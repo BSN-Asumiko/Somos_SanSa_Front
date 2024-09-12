@@ -1,33 +1,28 @@
-import React, { useState } from 'react';
+import React, { useState, useContext } from 'react';
 import { useForm } from "react-hook-form";
 import { useNavigate } from "react-router-dom";
 
+import { AuthContext } from '../../auth/AuthWrapper';
 import { apiRequest } from "../../services/apiRequest";
 import { ADD_NEW_COMMENT_URL } from "../../config/urls";
 
 import CardSample from "../cards/CardSample";
 import AcceptCancelButtons from '../buttons/AcceptCancelButtons';
 import CommonInput from '../inputs/CommonInput';
-import ConfirmModal from "../modal/ConfirmModal";
+import ConfirmModal from "../modals/ConfirmModal";
+import ErrorModal from '../modals/ErrorModal';
 
-const CreateCommentForm = ({topicName, topicId}) => {
+const CreateCommentForm = ({topic}) => {
 
-    const userId = localStorage.getItem('userId');
-    const token = localStorage.getItem('authToken');
+    const { authToken, user } = useContext(AuthContext);
+    const userId = user.id;
+    const token = authToken;
     const navigate = useNavigate();
-
-    const handleCancelButtonClick = () => {
-        navigate(`/topic/${topicId}`);
-    };
-
-    const handleConfirm = () => {
-        setModalOpen(false);
-        navigate(`/topic/${topicId}`);
-    };
 
     const { register, handleSubmit, formState: { errors } } = useForm();
     const [isModalOpen, setModalOpen] = useState(false);
     const [successMessage, setSuccessMessage] = useState("");
+    const [errorModal, setErrorModal] = useState({ isOpen: false, message: "" });
 
     const onSubmit = async (data) => {
         const { text } = data;
@@ -38,7 +33,7 @@ const CreateCommentForm = ({topicName, topicId}) => {
                 id: userId
             },
             topic: {
-                id: topicId
+                id: topic.id
             }
         };
         
@@ -49,19 +44,30 @@ const CreateCommentForm = ({topicName, topicId}) => {
         };
 
         try {
-            const response = await apiRequest(ADD_NEW_COMMENT_URL, POST, cleanedData, headers);
-            console.log("API Response:", response);
+            const response = await apiRequest(ADD_NEW_COMMENT_URL, "POST", cleanedData, headers);
         
         const successMessage = "¡Nuevo comentario creado con éxito!";
         setSuccessMessage(successMessage);
         setModalOpen(true);
 
         } catch (error) {
-            console.error("API Error:", error);
-            alert(`Error: ${error.response?.data?.message || error.message}`);
+            console.error("API Error:", error.message);
+            setErrorModal({
+                isOpen: true,
+                message: `Error: ${error.message}`
+            });
         }
     };
 
+    const handleCancelButtonClick = () => {
+        navigate(`/topic/${topic.id}`, {state: {topic}});
+    };
+
+    const handleConfirm = () => {
+        setModalOpen(false);
+        console.log(topic.id)
+        navigate(`/topic/${topic.id}`, {state: {topic}});
+    };
 
     return (
         <>
@@ -70,18 +76,18 @@ const CreateCommentForm = ({topicName, topicId}) => {
                 headerText="Crear el comentario">
                 <form onSubmit={handleSubmit(onSubmit)} className='w-full flex flex-col justify-center items-center'>
 
-                    <div className='w-[17.50em]'>
+                    <div className='w-[17.50em] m-auto'>
                         <p className='jaldi-bold text-md'>Estás dentro del tema</p>
-                        <p className='text-md'>{topicName}Vendo libros de 6</p>
+                        <p className='text-md'>{topic.title}</p>
                     </div>
                     <CommonInput
                         label="Texto"
                         id="text"
                         type="textarea"
-                        placeholder="Escribe el título del tema..." 
-                        divInputClassName="mt-4"
-                        inputClassName="overflow-auto" 
-                        rows={10} 
+                        placeholder="Escribe el texto del comentario..." 
+                        divInputClassName="mt-4 w-full"
+                        inputClassName="w-full h-auto overflow-auto" 
+                        rows={8} 
                         error={errors.text?.message}
                         {...register("text", {
                             required: "El comentario no puede estar vacio",
@@ -101,6 +107,11 @@ const CreateCommentForm = ({topicName, topicId}) => {
                 onConfirm={handleConfirm}
                 message={successMessage}
                 showOnlyAccept={true}
+            />
+            <ErrorModal 
+                isOpen={errorModal.isOpen} 
+                onClose={() => setErrorModal({ isOpen: false, message: "" })} 
+                message={errorModal.message} 
             />
         </>
     )
