@@ -12,7 +12,7 @@ const InputWithAcceptButton = ({label, id, placeholder, value = "", onChange, on
             <div className="flex">
                 <input
                     id={id}
-                    className="custom-input rounded-[1.25rem] w-[11em] h-[2.5rem] m-auto jaldi-regular text-[color:var(--col-blue)] bg-[color:var(--col-yellow-light)] text-md pl-[1.063rem] shadow-inset-custom border-0 focus:border-2 focus:border-[color:var(--col-green)] outline-none"
+                    className="custom-input rounded-[1.25rem] h-[2.5rem] m-auto jaldi-regular text-[color:var(--col-blue)] bg-[color:var(--col-yellow-light)] text-md pl-[1.063rem] shadow-inset-custom border-0 focus:border-2 focus:border-[color:var(--col-green)] outline-none"
                     placeholder={placeholder}
                     type="text"
                     value={value} 
