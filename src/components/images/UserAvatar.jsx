@@ -6,7 +6,7 @@ const UserAvatar = ({imageSrc, className}) => {
             <img
                 src={imageSrc}
                 alt="imágen de perfil de usuario"
-                className={`rounded-full ${className}`}
+                className="absolute inset-0 w-full h-full object-cover rounded-full"
             />
         </>
     )

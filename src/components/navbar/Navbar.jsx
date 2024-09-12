@@ -13,7 +13,6 @@ const Navbar = () => {
     const navigate = useNavigate();
     const { authToken, logout } = useContext(AuthContext);
     const userId = localStorage.getItem('userId');
-    console.log(userId);
 
     const isAuthenticated = authToken !== null;
 

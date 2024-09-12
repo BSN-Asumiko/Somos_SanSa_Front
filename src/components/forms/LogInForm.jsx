@@ -75,7 +75,7 @@ const  LogInForm = () => {
     return (
         <>
             <CardSample 
-                className="w-[19.38em] h-[22.50em] my-[5rem] flex flex-col items-center justify-center" 
+                className="w-[19.38em] h-[22.50em] mt-[4rem] flex flex-col items-center justify-center" 
                 headerText="Acceso de usuario">
 
                 <form onSubmit={handleSubmit(onSubmit)}>
