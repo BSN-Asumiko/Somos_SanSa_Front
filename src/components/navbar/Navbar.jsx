@@ -17,7 +17,7 @@ const Navbar = () => {
     const isAuthenticated = authToken !== null;
 
     const gotToHome = () => navigate('/');
-    const goToProfile = () => navigate(`edit_profile/${userId}`);
+    const goToProfile = () => navigate(`/edit_profile/${userId}`);
     const goToLogout = () => {
         logout();
         navigate('/');
