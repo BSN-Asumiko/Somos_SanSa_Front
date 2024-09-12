@@ -5,7 +5,7 @@ const CardSample = ({ className, headerText, children, showHeader = true, onClic
             onClick={onClick}>
             {showHeader && (
                 <div className="w-[90%] flex justify-center mt-[-0.8em] mb-[1.375rem] m-auto border-b-[color:var(--col-red)] border-b border-solid">
-                    <h4 className="jaldi-bold text-lg [color:var(--col-red)] leading-[2.625rem] pb-[0.313rem]">
+                    <h4 className="jaldi-bold text-lg text-[color:var(--col-red)] leading-[2.625rem] pb-[0.313rem]">
                         {headerText}
                     </h4>
                 </div>

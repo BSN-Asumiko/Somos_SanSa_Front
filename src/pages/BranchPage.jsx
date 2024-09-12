@@ -69,12 +69,40 @@ const BranchPage = () => {
         navigate('/'); 
     }; 
     const handleAddClick = () => {
-        navigate('/create_topic'); 
+        navigate('/create_topic', {state: {branchData}}); 
     }
 
     const handleSearchChange = (query) => {
         setSearchQuery(query);
     };
+
+    if (filteredTopics.length === 0) {
+        return (
+            <div className="w-full h-auto">
+                <Navbar />
+
+                <main className="w-full h-auto my-6 flex flex-col justify-center items-center gap-5">
+                <div className="w-full flex flex-col items-center">
+                    <div className="w-[65%]  h-[2.75em] flex justify-center border-b-custom">
+                        <h2 className="jaldi-bold text-lg text-[color:var(--col-green)]">{branchData.category}</h2>
+                    </div>
+                    <p className="w-[85%]  mt-3 jaldi-regular text-sm text-[color:var(--col-blue)] text-center">{branchData.description}</p>
+                </div>
+
+                <SearchInputGroup 
+                        onClickBack={handleGoBackClick}
+                        onClickAdd={handleAddClick}
+                        objectToAdd="un comentario nuevo"
+                        searchQuery={searchQuery}
+                        onSearchChange={handleSearchChange}
+                    />
+
+                    <h2 className="w-[80%] my-[2em] jaldi-bold text-lg text-[color:var(--col-red)] text-center">Todavía no hay ningún tema creado en esa sección, puedes crear primer</h2>
+
+                </main>
+            </div>
+        )
+    }
 
     return (
     <div className="w-full h-auto">
