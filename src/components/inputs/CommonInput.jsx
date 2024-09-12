@@ -32,7 +32,7 @@ const CommonInput = forwardRef(({
                 {type === 'textarea' ? (
                     <textarea
                         id={id}
-                        className={`custom-input rounded-[1.25rem] w-full h-[5.94em] text-[color:var(--col-blue)] bg-[color:var(--col-yellow-light)] text-md p-[1.063rem] shadow-inset-custom border-0 focus:border-2 focus:border-[color:var(--col-green)] outline-none ${inputClassName}`}
+                        className={`custom-input rounded-[1.25rem] h-[5.94em] text-[color:var(--col-blue)] bg-[color:var(--col-yellow-light)] text-md p-[1.063rem] shadow-inset-custom border-0 focus:border-2 focus:border-[color:var(--col-green)] outline-none ${inputClassName}`}
                         placeholder={placeholder}
                         rows={rows}
                         ref={ref}
@@ -47,7 +47,9 @@ const CommonInput = forwardRef(({
                         placeholder={placeholder}
                         type={type}
                         ref={ref}
+                        value={value}
                         onInput={onInput} 
+                        onChange={onChange}
                         {...rest}
                     />
                 )}

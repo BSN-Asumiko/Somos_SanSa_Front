@@ -1,5 +1,5 @@
 
-import React, { useState, useContext } from "react";
+import React, { useContext } from "react";
 import { useNavigate } from "react-router-dom";
 import { AuthContext } from '../../auth/AuthWrapper';
 
@@ -32,14 +32,17 @@ const Navbar = () => {
                 className='w-[8.06em]'/>
             <nav className="flex">
                 <img src={Home} alt="Ir a la página principal" className="w-[2.50em] cursor-pointer" onClick={gotToHome} />
-                <img src={Avatar} alt="Ir a la página de perfil" className="w-[2.50em]  cursor-pointer ml-[0.4em] mr-[0.2em]" onClick={goToProfile} />
+
+                
                 {!isAuthenticated && (
                     <>
+                        <img src={Avatar} alt="Ir a la página de perfil" className="w-[2.50em]  cursor-pointer ml-[0.4em] mr-[0.2em]" onClick={goToSignIn} />
                         <img src={Login} alt="Ir a la página de registro" className="w-[3.1em]  cursor-pointer" onClick={goToSignIn} />
                     </>
                 )}
                 {isAuthenticated && (
                     <>
+                        <img src={Avatar} alt="Ir a la página de perfil" className="w-[2.50em]  cursor-pointer ml-[0.4em] mr-[0.2em]" onClick={goToProfile} />
                         <img src={Logout} alt="Cerrar sesión de usuario" className="w-[3.1em]  cursor-pointer" onClick={goToLogout} />
                     </>
                 )}
