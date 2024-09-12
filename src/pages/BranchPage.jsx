@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useContext } from "react";
+import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { useLocation } from "react-router-dom";
 
@@ -53,7 +53,7 @@ const BranchPage = () => {
     }, [searchQuery, topicsData]);
 
     const handleClick = (topic) => {
-        navigate(`/topic/${topic.id}`);
+        navigate(`/topic/${topic.id}`, { state: { topic } });
     };
 
     const formatDate = (dateString) => {
@@ -89,12 +89,12 @@ const BranchPage = () => {
             
 
             <SearchInputGroup 
-                    onClickBack={handleGoBackClick}
-                    onClickAdd={handleAddClick}
-                    objectToAdd="un tema nuevo"
-                    searchQuery={searchQuery}
-                    onSearchChange={handleSearchChange}
-                />
+                onClickBack={handleGoBackClick}
+                onClickAdd={handleAddClick}
+                objectToAdd="un tema nuevo"
+                searchQuery={searchQuery}
+                onSearchChange={handleSearchChange}
+            />
 
             {filteredTopics.map((topic) => (
                 <TopicCard 

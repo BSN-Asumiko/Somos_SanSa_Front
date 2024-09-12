@@ -1,4 +1,4 @@
- import React from "react";
+import React from "react";
 import AcceptButton from "../buttons/AcceptButton";
 import CancelButton from "../buttons/CancelButton";
 

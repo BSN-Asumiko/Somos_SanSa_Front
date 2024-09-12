@@ -1,6 +1,6 @@
 import React from 'react'
 
-const UserAvatar = ({imageSrc, className}) => {
+const UserAvatar = ({imageSrc}) => {
     return (
         <>
             <img

@@ -34,10 +34,10 @@ const SearchInputGroup = ({onClickBack, objectToAdd, onClickAdd, onSearchChange,
                 onChange={handleSearchChange}
                 value={searchQuery}
                 placeholder="Buscar..."
-                divInputClassName="w-[68%]"
+                divInputClassName="w-[70%]"
                 divSearchClassName="relative"
                 imgSrc={Glass}
-                imgClassName="absolute right-6 h-5 w-5"
+                imgClassName="absolute right-[1em] h-5 w-5"
             />
         </div>
     )
