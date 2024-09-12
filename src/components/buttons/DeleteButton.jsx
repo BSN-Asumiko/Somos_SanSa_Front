@@ -36,7 +36,7 @@ function DeleteButton({ commentId, onDelete, className }) {
       />
       <ConfirmModal 
         isOpen={isModalOpen} 
-        message={"¿Quieres eliminar este destino?"}
+        message={"¿Quieres eliminar este comentario?"}
         onConfirm={handleConfirm}  
         onClose={handleCancel}  
       />

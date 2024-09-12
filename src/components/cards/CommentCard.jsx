@@ -13,7 +13,7 @@ import ImagePlaceholder from "../../../public/assets/Image-placeholder.png"
 import ConfirmModal from "../modals/ConfirmModal";
 import ErrorModal from "../modals/ErrorModal";
 
-const CommentCard = ({comment, className}) => {
+const CommentCard = ({comment, className, onDeleteComment }) => {
     const navigate = useNavigate();
     const { authToken, user } = useContext(AuthContext);
     const [errorModal, setErrorModal] = useState({ isOpen: false, message: "" });
@@ -24,8 +24,6 @@ const CommentCard = ({comment, className}) => {
     const creatorId = comment.userCommentDTO.id;
 
     const isCreator = currentUserId.toString() === creatorId.toString();
-
-    const isAuthenticated = authToken !== null;
     
     const formatDate = (dateString) => {
         const date = new Date(dateString);
@@ -40,7 +38,7 @@ const CommentCard = ({comment, className}) => {
     }
 
     const handleEditClick = () => {
-        navigate(`/edit_comment/${comment.id}`); 
+        navigate(`/edit_comment/${comment.id}`, {state: {comment}}); 
     };
 
     const commentId = comment.id; 
@@ -54,7 +52,7 @@ const CommentCard = ({comment, className}) => {
             await apiRequest(deleteCommentUrl(commentId), "DELETE",  null, headers);
             setSuccessMessage("¡Comentario eliminado con éxito!");
                 setModalOpen(true);
-
+                onDeleteComment(commentId);
         } catch (error) {
             console.error("API Error:", error.message);
             setErrorModal({
@@ -64,9 +62,11 @@ const CommentCard = ({comment, className}) => {
         }
     };
 
+    const topic = comment.topicDTO;
+
     const handleConfirm = () => {
         setModalOpen(false);
-        navigate(`/topic/${comment.topicDTO.id}`);
+        navigate(`/topic/${comment.topicDTO.id}`, {state: {topic}});
     };
 
     return (
@@ -91,7 +91,7 @@ const CommentCard = ({comment, className}) => {
                     <div className="flex flex-col flex w-[50%] items-end">
                         <p>{formatDate(comment.createdAt)}</p>
 
-                        {isAuthenticated && (
+                        {isCreator && (
                             <>
                                 <div className="flex gap-2 mt-2">
                                     <EditButton

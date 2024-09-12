@@ -1,17 +1,11 @@
 import React from 'react'
-import { useNavigate } from "react-router-dom";
 import { useLocation } from "react-router-dom";
-
-import { ADD_NEW_TOPIC_URL } from '../config/urls';
-import { apiRequest } from '../services/apiRequest';
 
 import Navbar from '../components/navbar/Navbar';
 import CreateTopicForm from '../components/forms/CreateTopicForm';
-import ErrorModal from "../components/modals/ErrorModal";
-import ConfirmModal from '../components/modals/ConfirmModal';
+
 
 const CreateTopicPage = () => {
-    const navigate = useNavigate();
     const location = useLocation(); 
     const branchData = location.state?.branchData;
 

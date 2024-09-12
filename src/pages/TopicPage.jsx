@@ -16,8 +16,10 @@ const TopicPage = () => {
 
     const location = useLocation(); 
     const topicData = location.state?.topic;
-    const topicId = topicData.id;
 
+    const topicId = topicData.id;
+    const branch = topicData.branchDTO;
+    
     const getCommentsUrl = getCommentsByTopicUrl(topicId);
 
     const [commentsData, setCommentsData] = useState([]);
@@ -57,15 +59,12 @@ const TopicPage = () => {
     };
 
     const handleGoBackClick = () => {
-        if (window.history.length > 1) {
-            navigate(-1);
-        } else {
-            navigate("/");  // Fallback to homepage if no history
-        }
+        navigate(`/branch/${branch.id}`, {state: {branch}})
     };
 
     const handleAddClick = () => {
-        navigate('/create_comment'); 
+
+        navigate('/create_comment', {state: {topicData}}); 
     }
 
     if (filteredComments.length === 0) {
@@ -85,11 +84,17 @@ const TopicPage = () => {
                         onSearchChange={handleSearchChange}
                     />
 
-                    <h2 className="w-[80%] my-[2em] jaldi-bold text-lg text-[color:var(--col-red)] text-center">Todavía no hay ningún commentario creado en ese tema, puedes crear primer</h2>
+                    <h2 className="w-[80%] my-[2em] jaldi-bold text-lg text-[color:var(--col-red)] text-center">Todavía no hay ningún commentario creado en ese tema, puedes crear el primero</h2>
                 </main>
             </div>
         )
     }
+
+    const handleCommentDelete = (deletedCommentId) => {
+        const updatedComments = commentsData.filter(comment => comment.id !== deletedCommentId);
+        setCommentsData(updatedComments);
+        setFilteredComments(updatedComments);  
+    };
 
     return (
         <div className="w-full h-auto">
@@ -113,7 +118,8 @@ const TopicPage = () => {
                         <>
                             <CommentCard 
                                 key={comment.id}
-                                comment={comment}                                
+                                comment={comment}
+                                onDeleteComment={handleCommentDelete}                                
                             />
                         </>
                     ))}

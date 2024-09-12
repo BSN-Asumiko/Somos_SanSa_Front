@@ -10,6 +10,7 @@ import CardSample from "../cards/CardSample";
 import AcceptCancelButtons from '../buttons/AcceptCancelButtons';
 import CommonInput from '../inputs/CommonInput';
 import ConfirmModal from "../modals/ConfirmModal";
+import ErrorModal from '../modals/ErrorModal';
 
 const CreateTopicForm = ({branchName, branchId}) => {
 
@@ -26,6 +27,7 @@ const CreateTopicForm = ({branchName, branchId}) => {
     const [isModalOpen, setModalOpen] = useState(false);
     const [successMessage, setSuccessMessage] = useState("");
     const [topic, setTopic] = useState("");
+    const [errorModal, setErrorModal] = useState({ isOpen: false, message: "" });
 
     const onSubmit = async (data) => {
         const { title } = data;
@@ -56,8 +58,11 @@ const CreateTopicForm = ({branchName, branchId}) => {
             setModalOpen(true);
 
         } catch (error) {
-            console.error("API Error:", error);
-            alert(`Error: ${error.response?.data?.message || error.message}`);
+            console.error("API Error:", error.message);
+            setErrorModal({
+                isOpen: true,
+                message: `Error: ${error.message}`
+            });
         }
     };
 
@@ -105,6 +110,11 @@ const CreateTopicForm = ({branchName, branchId}) => {
                 onConfirm={handleConfirm}
                 message={successMessage}
                 showOnlyAccept={true}
+            />
+            <ErrorModal 
+                isOpen={errorModal.isOpen} 
+                onClose={() => setErrorModal({ isOpen: false, message: "" })} 
+                message={errorModal.message} 
             />
         </>
     )
