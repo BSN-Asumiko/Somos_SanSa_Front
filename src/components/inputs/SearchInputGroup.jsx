@@ -7,7 +7,7 @@ import CommonInput from './CommonInput'
 import GoBackButton from '../buttons/GoBackButton'
 import AddButton from '../buttons/AddButton'
 
-const SearchInput = ({path, objectToAdd, handleAddFunction, className}) => {
+const SearchInputGroup = ({goBackPath, objectToAdd, handleAddFunction, className}) => {
 
     const [searchQuery, setSearchQuery] = useState("");
     const handleSearchChange = (e) => {
@@ -20,7 +20,7 @@ const SearchInput = ({path, objectToAdd, handleAddFunction, className}) => {
     return (
     <div className={`w-[90%] m-auto flex justify-between ${className}`}>
         <div className="flex gap-3">
-            <GoBackButton path={path}/>
+            <GoBackButton path={goBackPath}/>
             <AddButton objectToAdd={objectToAdd} onClick={handleAddFunction}/>
         </div>
         
@@ -39,4 +39,4 @@ const SearchInput = ({path, objectToAdd, handleAddFunction, className}) => {
     )
 }
 
-export default SearchInput
+export default SearchInputGroup

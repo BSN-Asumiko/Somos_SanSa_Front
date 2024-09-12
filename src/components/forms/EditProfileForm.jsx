@@ -160,7 +160,7 @@ const EditProfileForm = () => {
                             inputClassName="hidden"
                             onInput={handleFileChange}
                         />
-                        <p className='pl-[0.813rem] flex items-center'>
+                        <p className='pl-[0.813rem] flex items-center profile-text'>
                             {fileName}
                         </p>
                     </div>
@@ -179,8 +179,8 @@ const EditProfileForm = () => {
                                 />
                             ) : (
                                 <div className='text-md'>
-                                    <p className='jaldi-bold'>Nombre</p>
-                                    <p>{formData.nickname}</p>
+                                    <p className='jaldi-bold profile-text'>Nombre</p>
+                                    <p className='profile-text'>{formData.nickname}</p>
                                 </div>
                             )}
                         </div>
@@ -207,8 +207,8 @@ const EditProfileForm = () => {
                                 />
                             ) : (
                                 <div className='text-md'>
-                                    <p className='jaldi-bold'>Barrio</p>
-                                    <p>{formData.district}</p>
+                                    <p className='jaldi-bold profile-text'>Barrio</p>
+                                    <p className='profile-text'>{formData.district}</p>
                                 </div>
                             )}
                         </div>
@@ -231,6 +231,12 @@ const EditProfileForm = () => {
                 onConfirm={handleConfirm}
                 message={successMessage}
                 showOnlyAccept={true}
+            />
+            
+            <ErrorModal 
+                isOpen={errorModal.isOpen} 
+                onClose={() => setErrorModal({ isOpen: false, message: "" })} 
+                message={errorModal.message} 
             />
         </>
     );
