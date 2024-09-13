@@ -2,15 +2,15 @@
 
 ## Índice 📝
 
-- [Descripción](#descripción-del-proyecto-📖)
-- [Instalación](#instalación-💾)
+- [Descripción](#descripción-del-proyecto)
+- [Instalación](#instalación)
   - [Requisitos Previos (Backend)](#requisitos-previos-backend)
   - [Requisitos Previos (Frontend)](#requisitos-previos-frontend)
   - [Instalación del proyecto (Backend)](#instalación-del-proyecto-backend)
   - [Instalación del proyecto (Frontend)](#instalación-del-proyecto-frontend)
-- [Tecnologías Utilizadas](#tecnologías-utilizadas-🛠️)
-- [Contribución](#contribución-🤝)
-- [Developer](#developer-✒️)
+- [Tecnologías Utilizadas](#tecnologías-utilizadas)
+- [Contribución](#contribución)
+- [Developer](#developer)
 
 
 
