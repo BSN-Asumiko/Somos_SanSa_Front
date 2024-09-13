@@ -16,9 +16,9 @@
 
 ## Descripción del Proyecto 
 📖
-    Este proyecto es una aplicación web que permite a los usuarios conversar en un foro con diferentes secciones temáticas. Todos los usuarios pueden entrar a una sección, ver los temas y leer los comentarios. Solo los usuarios registrados pueden crear nuevos temas dentro de una sección seleccionada y escribir comentarios, así como editar su perfil. En las páginas de secciones y temas, se puede realizar búsquedas (por autor o título del tema dentro de una sección o por autor o contenido del comentario dentro de un tema).
+Este proyecto es una aplicación web que permite a los usuarios conversar en un foro con diferentes secciones temáticas. Todos los usuarios pueden entrar a una sección, ver los temas y leer los comentarios. Solo los usuarios registrados pueden crear nuevos temas dentro de una sección seleccionada y escribir comentarios, así como editar su perfil. En las páginas de secciones y temas, se puede realizar búsquedas (por autor o título del tema dentro de una sección o por autor o contenido del comentario dentro de un tema).
 
-    El proyecto está desarrollado con Java, Spring Boot, Spring Security y JWT para el back-end, utilizando una arquitectura MVC de 3 capas y estilo cliente-servidor (tipo API REST) con conexión a una base de datos en PostgreSQL. Para el front-end se utilizó React.js, Vite y TailwindCSS.
+El proyecto está desarrollado con Java, Spring Boot, Spring Security y JWT para el back-end, utilizando una arquitectura MVC de 3 capas y estilo cliente-servidor (tipo API REST) con conexión a una base de datos en PostgreSQL. Para el front-end se utilizó React.js, Vite y TailwindCSS.
 
 
 
