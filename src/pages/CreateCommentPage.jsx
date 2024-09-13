@@ -7,7 +7,8 @@ import CreateCommentForm from '../components/forms/CreateCommentForm';
 
 const CreateCommentPage = () => {
     const location = useLocation(); 
-    const topic = location.state?.topicData;
+    const topic = location.state?.topic;
+
     
     return (
     <div className="w-full h-auto">

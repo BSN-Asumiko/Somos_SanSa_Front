@@ -12,15 +12,15 @@ import CommonInput from '../inputs/CommonInput';
 import ConfirmModal from "../modals/ConfirmModal";
 import ErrorModal from '../modals/ErrorModal';
 
-const CreateTopicForm = ({branchName, branchId}) => {
+const CreateTopicForm = ({branch}) => {
 
     const { authToken, user } = useContext(AuthContext);
-    const userId = user.id;
+    const userId = user?.id;
     const token = authToken;
     const navigate = useNavigate();
 
     const handleCancelButtonClick = () => {
-        navigate(`/branch/${branchId}`);
+        navigate(`/branch/${branch.id}`, {state: {branch}});
     };
 
     const { register, handleSubmit, formState: { errors } } = useForm();
@@ -38,7 +38,7 @@ const CreateTopicForm = ({branchName, branchId}) => {
                 id: userId
             },
             branch: {
-                id: branchId
+                id: branch.id
             }
         };
         
@@ -66,10 +66,13 @@ const CreateTopicForm = ({branchName, branchId}) => {
         }
     };
 
+
     const handleConfirm = () => {
         setModalOpen(false);
         navigate("/create_comment", {state: {topic}});
     };
+
+
 
     return (
         <>
@@ -80,7 +83,7 @@ const CreateTopicForm = ({branchName, branchId}) => {
 
                     <div className='w-[17.50em]'>
                         <p className='jaldi-bold text-md'>Estás dentro de la sección</p>
-                        <p className='text-md'>{branchName}</p>
+                        <p className='text-md'>{branch.category}</p>
                     </div>
 
                     <CommonInput

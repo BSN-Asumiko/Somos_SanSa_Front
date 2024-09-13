@@ -15,8 +15,7 @@ const CreateTopicPage = () => {
 
         <main className="w-full h-auto my-6 flex flex-col justify-center items-center gap-5">
             <CreateTopicForm 
-                branchName={branchData.category}
-                branchId={branchData.id}
+                branch={branchData}
             />
 
         </main>

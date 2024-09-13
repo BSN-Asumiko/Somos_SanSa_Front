@@ -15,10 +15,10 @@ const TopicPage = () => {
     const navigate = useNavigate();
 
     const location = useLocation(); 
-    const topicData = location.state?.topic;
+    const topic = location.state?.topic;
 
-    const topicId = topicData.id;
-    const branch = topicData.branchDTO;
+    const topicId = topic.id;
+    const branch = topic.branchDTO;
     
     const getCommentsUrl = getCommentsByTopicUrl(topicId);
 
@@ -64,7 +64,7 @@ const TopicPage = () => {
 
     const handleAddClick = () => {
 
-        navigate('/create_comment', {state: {topicData}}); 
+        navigate('/create_comment', {state: {topic}}); 
     }
 
     if (filteredComments.length === 0) {
@@ -73,7 +73,7 @@ const TopicPage = () => {
                 <Navbar />
                 <main className="w-full h-auto my-6 flex flex-col justify-center items-center gap-5">
                     <div className="w-[65%]  h-[2.75em] flex justify-center border-b-custom">
-                        <h2 className="jaldi-bold text-lg text-[color:var(--col-green)]">{topicData.title}</h2>
+                        <h2 className="jaldi-bold text-lg text-[color:var(--col-green)]">{topic.title}</h2>
                     </div>
 
                     <SearchInputGroup 
@@ -103,7 +103,7 @@ const TopicPage = () => {
             <main className="w-full h-auto my-6 flex flex-col justify-center items-center gap-5">
 
                     <div className="w-[65%]  h-[2.75em] flex justify-center border-b-custom">
-                        <h2 className="jaldi-bold text-lg text-[color:var(--col-green)]">{topicData.title}</h2>
+                        <h2 className="jaldi-bold text-lg text-[color:var(--col-green)]">{topic.title}</h2>
                     </div>
 
                     <SearchInputGroup 
