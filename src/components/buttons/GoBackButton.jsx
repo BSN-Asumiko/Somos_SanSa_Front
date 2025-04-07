@@ -1,4 +1,4 @@
-import Arrows from "../../../public/assets/Arrows-icon.svg";
+import Arrows from "/assets/Arrows-icon.svg?url";
 import { useNavigate } from "react-router-dom";
 
 const GoBackButton = ({onClick}) => {

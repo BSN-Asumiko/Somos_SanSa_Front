@@ -130,7 +130,6 @@ const BranchPage = () => {
                     headerText={topic.title}
                     imageSrc={topic.userTopicDTO.avatarUrl ? topic.userTopicDTO.avatarUrl : ImagePlaceholder}
                     userName={topic.userTopicDTO.nickname}
-                    commentsQuantity={topicsData.length}
                     creationDate={formatDate(topic.createdAt)}
                     onClick={() => handleClick(topic)}
                 />

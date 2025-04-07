@@ -2,7 +2,7 @@ import React, {useContext} from "react";
 
 import { AuthContext } from '../../auth/AuthWrapper';
 
-import Glass from "../../../public/assets/Glass-icon.svg";
+import Glass from "/assets/Glass-icon.svg?url";
 import CommonInput from './CommonInput'
 import GoBackButton from '../buttons/GoBackButton'
 import AddButton from '../buttons/AddButton'

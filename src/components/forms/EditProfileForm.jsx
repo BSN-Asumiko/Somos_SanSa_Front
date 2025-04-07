@@ -15,7 +15,7 @@ import ErrorModal from '../modals/ErrorModal';
 import UserAvatar from '../images/UserAvatar';
 import InputWithAcceptButton from '../inputs/InputWithAcceptButton';
 
-import ImagePlaceholder from "../../../public/assets/Image-placeholder.png";
+import ImagePlaceholder from "/assets/Image-placeholder.png?url";
 
 const EditProfileForm = () => {
     const userId = localStorage.getItem('userId');
@@ -154,7 +154,7 @@ const EditProfileForm = () => {
                             type="file"
                             placeholder="Sube una imagen..."
                             divInputClassName=" rounded-tl-[1.25rem] w-[3.2em] rounded-bl-[1.25rem] bg-[color:var(--col-blue)] ml-[-1rem] relative block"
-                            imgSrc="/public/assets/File-icon.svg"
+                            imgSrc="/assets/File-icon.svg"
                             imgAlt="Seleccionar una imágen de tu dispositivo"
                             imgClassName='w-[1.876rem] h-[1.5rem] absolute top-[0.5rem] left-[1rem]'
                             inputClassName="hidden"

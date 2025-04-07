@@ -9,7 +9,7 @@ import CardSample from "./CardSample";
 import EditButton from "../buttons/EditButton";
 import DeleteButton from "../buttons/DeleteButton";
 import UserAvatar from "../images/UserAvatar";
-import ImagePlaceholder from "../../../public/assets/Image-placeholder.png"
+import ImagePlaceholder from "/assets/Image-placeholder.png?url"
 import ConfirmModal from "../modals/ConfirmModal";
 import ErrorModal from "../modals/ErrorModal";
 

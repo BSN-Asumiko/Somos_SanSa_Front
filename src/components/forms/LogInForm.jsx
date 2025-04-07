@@ -41,7 +41,6 @@ const  LogInForm = () => {
             const response = await apiRequest(LOG_IN_URL, "POST", userData, headers);
     
             const { token, userDTO } = response;
-            console.log("API Response:", response);
     
             if (token) {
                 const cleanedToken = token.startsWith('Bearer ') ? token.slice(7) : token;

@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import Delete from "../../../public/assets/Delete-icon.svg";
+import Delete from "/assets/Delete-icon.svg?url";
 import ConfirmModal from '../modals/ConfirmModal'; 
 
 function DeleteButton({ commentId, onDelete, className }) {

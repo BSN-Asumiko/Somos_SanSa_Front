@@ -1,4 +1,4 @@
-import Edit from "../../../public/assets/Edit-icon.svg";
+import Edit from "/assets/Edit-icon.svg?url";
 
 
 function EditButton({ objectToModify, className, onClick }) {

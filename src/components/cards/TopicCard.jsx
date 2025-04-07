@@ -18,7 +18,7 @@ const TopicCard = ({className, headerText, imageSrc, userName, commentsQuantity,
             
             <div className='w-[50%] '>
                 <p className='mb-[1.06em]'>Autor: <span className='jaldi-bold'>{userName}</span></p>
-                <p>Hay <span className='jaldi-bold'>{commentsQuantity} </span> {commentsQuantity === 1 ? "comentario" : "comentarios"} </p>
+                {/* <p>Hay <span className='jaldi-bold'>{commentsQuantity} </span> {commentsQuantity === 1 ? "comentario" : "comentarios"} </p> */}
                 <p>Creado: <span className='jaldi-bold'>{creationDate}</span></p>
             </div>
         </div>

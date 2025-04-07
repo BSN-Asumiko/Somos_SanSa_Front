@@ -1,4 +1,4 @@
-import Accept from "../../../public/assets/Accept-icon.svg";
+import Accept from "/assets/Accept-icon.svg?url";
 
 const AcceptEditButton = ({onClick}) => {
     return (

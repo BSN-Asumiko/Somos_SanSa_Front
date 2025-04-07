@@ -1,4 +1,4 @@
-import Create from "../../../public/assets/Create-icon.svg";
+import Create from "/assets/Create-icon.svg?url";
 
 const AddButton = ({onClick, objectToAdd}) => {
     return (

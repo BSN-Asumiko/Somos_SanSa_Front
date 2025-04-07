@@ -3,11 +3,11 @@ import React, { useContext } from "react";
 import { useNavigate } from "react-router-dom";
 import { AuthContext } from '../../auth/AuthWrapper';
 
-import Logo from "../../../public/assets/logo.png";
-import Home from "../../../public/assets/Home-icon.svg";
-import Logout from "../../../public/assets/Logout-icon.svg";
-import Avatar from "../../../public/assets/Avatar-icon.svg";
-import Login from "../../../public/assets/Login-icon.svg";
+import Logo from "/assets/logo.png?url";
+import Home from "/assets/Home-icon.svg?url";
+import Logout from "/assets/Logout-icon.svg?url";
+import Avatar from "/assets/Avatar-icon.svg?url";
+import Login from "/assets/Login-icon.svg?url";
 
 const Navbar = () => {
     const navigate = useNavigate();
